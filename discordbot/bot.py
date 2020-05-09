@@ -19,7 +19,6 @@ class DiscordBot(commands.Bot):
 		print('Logged in as')
 		print('login: {}'.format(self.user.name))
 		print('id: {}'.format(self.user.id))
-		print('Link to download: https://discord.com/oauth2/authorize?client_id={}&scope=bot&permissions=805314622'.format(self.user.id))
 		if modules_load(self):
 			print('Successfully loaded cogs.')
 		else:
