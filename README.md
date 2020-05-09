@@ -5,6 +5,7 @@ Discord Bot - a simple bot for Discord servers, that uses [Discord.py](https://g
 ## Summary
 
   - [Getting Started](#getting-started)
+  - [Example of Bot](#example-of-bot)
   - [Authors](#authors)
   - [License](#license)
   - [Acknowledgments](#acknowledgments)
@@ -39,6 +40,28 @@ To run Discord Bot
 
 ```bash
 python3 main.py
+```
+
+## Example of Bot
+
+You can create your own bot based on discordbot.
+
+```python
+#!/usr/bin/env python3
+
+from discordbot import DiscordBot
+
+def main(token: str = None) -> None:
+	if token is not None:
+		bot = DiscordBot(command_prefix='!')
+		try:
+			bot.run(token)
+		except KeyboardInterrupt:
+			pass
+
+if __name__ == '__main__':
+	token = 'TOKEN'
+	main(token)
 ```
 
 ## Authors
