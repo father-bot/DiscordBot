@@ -44,10 +44,3 @@ class DiscordBot(commands.Bot):
 
 	async def on_command_error(self, ctx, error) -> None:
 		await ctx.send(error)
-
-	async def on_voice_state_update(self, member: discord.Member = None, before: discord.VoiceState = None, after: discord.VoiceState = None) -> None:
-		if member is not None:
-			try:
-				self.members[member.display_name].state_change(member.voice.channel)
-			except:
-				self.members[member.display_name].state_change(None)
