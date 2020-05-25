@@ -14,7 +14,7 @@ class DiscordBot(commands.Bot):
 		self.loop.close()
 
 	async def on_ready(self) -> None:
-		with open('./discordbot/welcome.txt') as f:
+		with open('./discordbot/data/welcome.txt') as f:
 			print(f.read())
 		print('Logged in as')
 		print('login: {}'.format(self.user.name))
