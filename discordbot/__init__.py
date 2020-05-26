@@ -1,3 +1,2 @@
-from .modules import modules_load, modules_remove, Module
-from .member import Member, members_init
+from .member import Member, members
 from .bot import DiscordBot
