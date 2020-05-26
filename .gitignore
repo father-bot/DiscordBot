@@ -4,3 +4,7 @@ __pycache__/
 
 # Other stuff:
 *.log
+
+# Data base
+*.json
+database/
