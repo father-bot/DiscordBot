@@ -8,7 +8,7 @@ class Json:
 		self.database = './discordbot/data/database'
 
 	def create_config(self, nick: str, server: str) -> None:
-		json_struct = {'warnings': 0, 'time': 0}
+		json_struct = {'warnings': 0, 'time': 0, 'partner': ''}
 		with io.open('{}/{}/{}.json'.format(self.database, server, nick), 'w+', encoding='utf8') as f:
 			__str__ = str(json.dumps(json_struct, indent=4, sort_keys=False, separators=(',', ': ')))
 			f.write(__str__)
@@ -29,11 +29,12 @@ class Json:
 		if not config == {}:
 			member.time = config['time']
 			member.warnings = config['warnings']
+			member.partner = config['partner']
 		return member
 
 	def update_config(self, nick: str, server: str) -> None:
 		member = self.bot.members[server][nick]
-		json_struct = {'warnings': member.warnings, 'time': member.time}
+		json_struct = {'warnings': member.warnings, 'time': member.time, 'partner': str(member.partner)}
 		with io.open('{}/{}/{}.json'.format(self.database, server, nick), 'w', encoding='utf8') as f:
 			__str__ = str(json.dumps(json_struct, indent=4, sort_keys=False, separators=(',', ': ')))
 			f.write(__str__)
