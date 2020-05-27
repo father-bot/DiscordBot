@@ -14,13 +14,15 @@ class Member(object):
 		self.connect_time = 0
 		self.warnings = 0
 		self.json = Json(self.bot)
+		self.partner = ''
 
 	def __str__(self):
 		self.json.config_to_member(self)
 		return ("""Information about @{}:
 Ban warnings: {}
 Active time: {}
-""".format(self.name, self.warnings, self.time))
+Partner: {}
+""".format(self.name, self.warnings, self.time, self.partner if self.partner else 'alone'))
 
 	def update(self, channel: discord.VoiceChannel = None) -> None:
 		if self.current_channel is not channel and self.current_channel is not None:
@@ -45,4 +47,3 @@ def members(bot: commands.Bot) -> dict:
 				members[member.name] = json.config_to_member(Member(member.name, guild.name, bot))
 		servers[guild.name] = members
 	return servers
-	
