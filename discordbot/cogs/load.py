@@ -26,7 +26,7 @@ class Load(Module):
 				self.bot.unload_extension("discordbot.cogs.{}".format(extension))
 				self.bot.load_extension("discordbot.cogs.{}".format(extension))
 			except commands.ExtensionError as e:
-				await ctx.send(e.__str__().replace('discordbot.cogs.', ''))
+				await ctx.send(str(e).replace('discordbot.cogs.', ''))
 		else:
 			self.bot.modules.reload()
 
