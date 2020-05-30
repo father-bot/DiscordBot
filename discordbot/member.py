@@ -18,7 +18,6 @@ class Member(object):
 		self.partner_id = 0
 
 	def update_time(self, channel: discord.VoiceChannel):
-		#print(channel)
 		if self.current_channel is not channel and self.current_channel is not None:
 			self.time = self.time + (int(time.time()) - self.connect_time)
 			if channel in self.channel_time:
@@ -27,8 +26,6 @@ class Member(object):
 				self.channel_time[channel] = (int(time.time()) - self.connect_time)
 		self.connect_time = int(time.time())
 		self.current_channel = channel
-		#print(self.time)
-		#print(str(self))
 
 	def set_partner(self, partner, partner_id):
 		self.partner = partner
@@ -47,7 +44,6 @@ class Members(object):
 	def __init__(self, bot):
 		self.bot = bot
 		self.__members = {f'{guild.name}/{member.id}': Member(guild.name, member.id, member.name) for guild in bot.guilds for member in guild.members}
-		#print(self.__members)
 
 	def create_member_nick(self, server, id, nick):
 		self.__members[f'{server}/{id}'] = Member(server, id, nick)
