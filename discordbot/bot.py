@@ -1,8 +1,7 @@
 import discord, sys, os, sqlite3
 from discord.ext import commands
 from discordbot import Member, Members
-from discordbot.utils import Modules#, Cli, Json
-from discordbot.utils import Database
+from discordbot.utils import Modules, Database
 
 class DiscordBot(commands.Bot):
 	def __init__(self, *args, **kwargs) -> None:
