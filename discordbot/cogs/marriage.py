@@ -5,16 +5,16 @@ from discordbot.utils import Module
 class Marriage(Module):
 	'''Marry and divorce two members.'''
 
-	proposal_yes = re.compile(r'(i do)|(yes)|(yeah)|(sure)')
-	proposal_no = re.compile(r'(no)')
+	proposal_yes = re.compile(r'(i do)|(yes)|(yeah)|(sure)|(да)')
+	proposal_no = re.compile(r'(no)|(нет)|(не)')
 
 	@commands.command(usage='<member>')
 	async def marry(self, ctx: commands.Context, member: discord.Member):
 		'''Marries to members'''
 		target = member
 		instigator = ctx.author
-		ins = self.bot.members[instigator.guild.name][instigator.name]
-		tar = self.bot.members[target.guild.name][target.name]
+		ins = self.bot.members.get_member(instigator.guild.name, instigator.id)
+		tar = self.bot.members.get_member(target.guild.name, target.id)
 		if instigator.id in self.bot.proposal_cache:
 			t = self.bot.proposal_cache.get(instigator.id)
 			if t[0] == 'instigator':
@@ -67,10 +67,10 @@ class Marriage(Module):
 			await ctx.send('Oh boy. They said no. That can\'t be good.')
 		elif response == 'yes':
 			await ctx.send(f'{instigator.mention}, {target.mention}, I now pronounce you married.')
-			ins.partner = target.name
-			tar.partner = instigator.name
-			self.bot.json.update_config(ins.name, ins.server)
-			self.bot.json.update_config(tar.name, tar.server)
+			self.bot.members.set_member_partner(instigator.guild.name, instigator.id, target.id)
+			self.bot.members.set_member_partner(target.guild.name, target.id, instigator.id)
+			self.bot.db.set_new_database_value(instigator.guild.name, instigator.id, self.bot.members.get_info(instigator.guild.name, instigator.id)[1:])
+			self.bot.db.set_new_database_value(target.guild.name, target.id, self.bot.members.get_info(target.guild.name, target.id)[1:])
 		del self.bot.proposal_cache[instigator.id]
 		del self.bot.proposal_cache[target.id]
 
@@ -79,24 +79,21 @@ class Marriage(Module):
 		'''Divorces to members'''
 		target = member
 		instigator = ctx.author
-		ins = self.bot.members[instigator.guild.name][instigator.name]
+		ins = self.bot.members.get_member(instigator.guild.name, instigator.id)
 		if ins.partner == '':
 			await ctx.send('You\'re not married. Don\'t try ti divorce strangers.')
-			return			
-		elif target == None:
-			target_name = ''
-		else:
-			target_name = ins.partner
+			return
 
-		if ins.partner != target_name:
+		if str(ins.partner_id) != str(target.id):
 			await ctx.send('You aren\'t married to that person.')
 			return
 		
 		await ctx.send('You and your partner are now divorced. I wish you luck in your lives.')
-		ins.partner = ''
-		tar = self.bot.members[instigator.guild.name][target_name]
-		self.bot.json.update_config(ins.name, ins.server)
-		self.bot.json.update_config(tar.name, tar.server)
+		self.bot.members.set_member_partner(instigator.guild.name, instigator.id, 0)
+		self.bot.members.set_member_partner(instigator.guild.name, target.id, 0)
+		
+		self.bot.db.set_new_database_value(instigator.guild.name, instigator.id, self.bot.members.get_info(instigator.guild.name, instigator.id)[1:])
+		self.bot.db.set_new_database_value(target.guild.name, target.id, self.bot.members.get_info(target.guild.name, target.id)[1:])
 
 def setup(bot: commands.Bot) -> None:
 	bot.add_cog(Marriage(bot))
