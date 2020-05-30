@@ -44,7 +44,7 @@ python3 main.py
 
 ### Link to download DiscordBot on your server
 
-[Link to install DiscordBot](https://discord.com/oauth2/authorize?client_id=707219673523159160&scope=bot&permissions=805314622)
+[Link to install DiscordBot on your server](https://discord.com/oauth2/authorize?client_id=707219673523159160&scope=bot&permissions=805314622)
 
 ## Example of Bot
 
