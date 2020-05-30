@@ -13,11 +13,14 @@ class Modules:
 		self.modules = [filename[:-3] for filename in os.listdir('./discordbot/cogs/') if filename.endswith('.py') and not '__init__' in filename]
 
 	def _base(self, func) -> bool:
-		try:
-			[func('discordbot.cogs.{}'.format(module)) for module in self.modules]
-		except Exception as e:
-			print(e)
-			return False
+		for module in self.modules:
+			try:
+				func('discordbot.cogs.{}'.format(module))
+			except commands.ExtensionAlreadyLoaded as e:
+				pass
+			except Exception as e:
+				print(e)
+				return False
 		return True
 
 	def load(self) -> bool:
