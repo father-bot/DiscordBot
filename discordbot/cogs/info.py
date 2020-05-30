@@ -10,7 +10,7 @@ class Info(Module):
 		'''Prints how much time does user spent in voice chats.'''
 		if member == None:
 			member = ctx.author
-		await ctx.send(str(self.bot.members[member.guild.name][member.display_name]))
+		await ctx.send(str(self.bot.members.get_member(member.guild.name, member.id)))
 
 def setup(bot: commands.Bot) -> None:
 	bot.add_cog(Info(bot))
