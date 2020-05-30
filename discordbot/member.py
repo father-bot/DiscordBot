@@ -36,7 +36,7 @@ class Member(object):
 
 	def __str__(self):
 		return ('''Information about @{}:
-Active time: {}
+Active time: {}s
 Ban warnings: {}
 Partner: {}'''.format(self.nick, self.time, self.warnings, self.partner if self.partner else ''))
 
