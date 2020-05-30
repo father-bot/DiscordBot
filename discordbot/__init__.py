@@ -1,2 +1,2 @@
-from .member import Member, members
+from .member import Member, Members
 from .bot import DiscordBot
