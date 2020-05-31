@@ -72,6 +72,8 @@ class DiscordBot(commands.Bot):
 	async def on_message(self, message: discord.message) -> None:
 		if message.author.id == self.user.id:
 			return
+		if message.content.count(self.command_prefix) != 1:
+			return
 		message.content = message.content.lower()
 		self.ctx = await self.get_context(message)
 		if message.content.startswith(self.command_prefix):
