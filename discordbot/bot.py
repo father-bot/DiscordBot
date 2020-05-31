@@ -74,7 +74,6 @@ class DiscordBot(commands.Bot):
 			return
 		if message.content.count(self.command_prefix) != 1:
 			return
-		message.content = message.content.lower()
 		self.ctx = await self.get_context(message)
 		if message.content.startswith(self.command_prefix):
 			await self.invoke(self.ctx)
