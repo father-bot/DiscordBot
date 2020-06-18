@@ -38,7 +38,7 @@ pip3 install -r requirements.txt
 
 3. From the left menu, click "Bot", then press "Add bot" on the next screen.
 
-4. Finally, press the "Copy" button under the "Token" section to get your discord bot token. Insert your token in the link: https://discord.com/oauth2/authorize?client_id=ENTER_YOUR_TOKEN_HERE&scope=bot&permissions=805314622
+4. Finally, press the "Copy" button under the "Client ID" section to get your discord bot client id. Insert your client id in the link: https://discord.com/oauth2/authorize?client_id=ENTER_YOUR_CLIENT_ID_HERE&scope=bot&permissions=805314622. Also you can press the "Copy" button under the "Token" section to get your discord bot token.
 
 ### Running
 
@@ -70,7 +70,7 @@ def main(token: str = None) -> None:
 			pass
 
 if __name__ == '__main__':
-	token = 'TOKEN'
+	token = 'ENTER_YOUR_TOKEN_HERE'
 	main(token)
 ```
 
