@@ -40,10 +40,6 @@ pip3 install -r requirements.txt
 
 4. Finally, press the "Copy" button under the "Token" section to get your discord bot token. Insert your token in the link: https://discord.com/oauth2/authorize?client_id=ENTER_YOUR_TOKEN_HERE&scope=bot&permissions=805314622
 
-### How to get Discord Token
-
-Go to [Discord Developers Site](https://discord.com/developers/applications/) and create new application. Go to tab 'Bot' and copy the token.
-
 ### Running
 
 To run Discord Bot
