@@ -33,5 +33,6 @@ def main(token: str = None) -> None:
 			pass
 
 if __name__ == '__main__':
-	token = input('Enter your discord token: ')
-	main(token)
+	token = open('config.txt').read()
+	if token:
+		main(token)
