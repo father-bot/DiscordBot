@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import sys
+from sys import argv
 from discordbot import DiscordBot
 
 def main(token: str = None) -> None:
@@ -34,9 +34,9 @@ def main(token: str = None) -> None:
 			pass
 
 if __name__ == '__main__':
-	if len(sys.argv) != 2:
+	if len(argv) != 2:
 		token = open('config.txt').read()
 	else:
-		token = sys.argv[1]
+		token = argv[1]
 	if token:
 		main(token)
