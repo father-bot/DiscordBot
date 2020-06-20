@@ -1,5 +1,8 @@
 # Discord Bot
 
+![Twitter](https://img.shields.io/twitter/follow/thecakeisfalse?label=Follow)
+![Github](https://img.shields.io/github/followers/game-lover?label=Follow&style=social)
+
 Discord Bot - a simple bot for Discord servers, that uses [Discord.py](https://github.com/Rapptz/discord.py) API to work.
 
 ## Summary
