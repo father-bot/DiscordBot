@@ -34,9 +34,5 @@ def main(token: str = None) -> None:
 			pass
 
 if __name__ == '__main__':
-	if len(argv) != 2:
-		token = open('config.txt').read()
-	else:
-		token = argv[1]
-	if token:
-		main(token)
+	token = open('config.txt').read() if len(argv) != 2 else argv[1]
+	main(token)
