@@ -23,6 +23,7 @@
 # SOFTWARE.
 
 from sys import argv
+from os.path import exists
 from discordbot import DiscordBot
 
 def main(token: str = None) -> None:
@@ -34,5 +35,5 @@ def main(token: str = None) -> None:
 			pass
 
 if __name__ == '__main__':
-	token = open('config.txt').read() if len(argv) != 2 else argv[1]
+	token = open('config.txt').read() if len(argv) != 2 and exists('config.txt') else argv[-1]
 	main(token)
