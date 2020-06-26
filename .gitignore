@@ -9,3 +9,6 @@ __pycache__/
 *.json
 *.db
 database/
+
+# Configuration file
+config.txt
