@@ -58,7 +58,7 @@ class Marriage(Module):
 		try:
 			await ctx.send(f'{target.display_name}, will you marry {instigator.display_name}?')
 			m = await self.bot.wait_for('message', check=check, timeout=60)
-		except TimeoutError as e:
+		except TimeoutError:
 			del self.bot.proposal_cache[instigator.id]
 			del self.bot.proposal_cache[target.id]
 			return

@@ -72,8 +72,6 @@ class DiscordBot(commands.Bot):
 	async def on_message(self, message: discord.message) -> None:
 		if message.author.id == self.user.id:
 			return
-		if message.content.count(self.command_prefix) != 1:
-			return
 		self.ctx = await self.get_context(message)
 		if message.content.startswith(self.command_prefix):
 			await self.invoke(self.ctx)
@@ -85,6 +83,6 @@ class DiscordBot(commands.Bot):
 		if member is not None:
 			try:
 				self.members.update_member_time(member.guild.name, member.id, member.voice.channel)
-			except Exception as e:
+			except Exception:
 				self.members.update_member_time(member.guild.name, member.id, None)
 			self.db.set_new_database_value(member.guild.name, member.id, self.members.get_info(member.guild.name, member.id)[1:])

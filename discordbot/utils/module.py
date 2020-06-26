@@ -1,6 +1,6 @@
+import os
 import discord
 from discord.ext import commands
-import os
 
 class Module(commands.Cog):
 	"""Simple module class"""
@@ -16,7 +16,7 @@ class Modules:
 		for module in self.modules:
 			try:
 				func('discordbot.cogs.{}'.format(module))
-			except commands.ExtensionAlreadyLoaded as e:
+			except commands.ExtensionAlreadyLoaded:
 				pass
 			except Exception as e:
 				print(e)
