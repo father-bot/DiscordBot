@@ -28,7 +28,7 @@ from discordbot import DiscordBot
 
 def main(token: str = None) -> None:
 	if token is not None:
-		bot = DiscordBot(command_prefix='?')
+		bot = DiscordBot(command_prefix='di!')
 		try:
 			bot.run(token)
 		except KeyboardInterrupt:
