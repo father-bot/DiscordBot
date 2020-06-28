@@ -40,9 +40,8 @@ class Modules:
     """
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.cogs_py = self.__module__
-        self.cogs_py = f'{self.cogs_py[:self.cogs_py.index(".")]}.cogs'
-        self.cogs_path = self.cogs_py.replace('.', '/')
+        self.modules_path = './discordbot/cogs/{}'
+        self.python_path = 'discordbot.cogs.{}'
 
     def load_module(self, name: str) -> bool:
         """The method to load module.
@@ -53,7 +52,7 @@ class Modules:
             Name of the module.
         """
         try:
-            self.bot.load_extension(f'{self.cogs_py}.{name}')
+            self.bot.load_extension(self.python_path.format(name))
         except commands.errors.ExtensionAlreadyLoaded:
             pass
         except Exception:
@@ -69,7 +68,7 @@ class Modules:
             Name of the module.
         """
         try:
-            self.bot.reload_extension(f'{self.cogs_py}.{name}')
+            self.bot.reload_extension(self.python_path.format(name))
         except Exception:
             return False
         return True
@@ -83,7 +82,7 @@ class Modules:
             Name of the module.
         """
         try:
-            self.bot.unload_extension(f'{self.cogs_py}.{name}')
+            self.bot.unload_extension(self.python_path.format(name))
         except Exception:
             return False
         return True
@@ -91,7 +90,7 @@ class Modules:
     def load_modules(self) -> bool:
         """The method to load all modules.
         """
-        for filename in os.listdir(f'./{self.cogs_path}'):
+        for filename in os.listdir(self.modules_path):
             if not '__init__' in filename and filename.endswith('.py'):
                 if not self.load_module(filename[:-3]):
                     return False
@@ -100,7 +99,7 @@ class Modules:
     def reload_modules(self) -> bool:
         """The method to reload all modules.
         """
-        for filename in os.listdir(f'./{self.cogs_path}'):
+        for filename in os.listdir(self.modules_path):
             if not '__init__' in filename and filename.endswith('.py'):
                 if not self.reload_module(filename[:-3]):
                     return False
@@ -109,7 +108,7 @@ class Modules:
     def unload_modules(self) -> bool:
         """The method to unload all modules.
         """
-        for filename in os.listdir(f'./{self.cogs_path}'):
+        for filename in os.listdir(self.modules_path):
             if not '__init__' in filename and filename.endswith('.py'):
                 if not self.unload_module(filename[:-3]):
                     return False
