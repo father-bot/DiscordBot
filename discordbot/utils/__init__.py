@@ -1,2 +1,15 @@
-from .module import Module, Modules
-from .db import Database
+# -*- coding: utf-8 -*-
+
+"""
+discordbot.utils
+----------------
+
+An utils module to facilitate creation of bot commands.
+
+:copyright: (c) 2020 Simon Chaykin
+:license: MIT, see LICENSE for more details.
+"""
+
+from .sqlite import *
+from .members import *
+from .modules import *
