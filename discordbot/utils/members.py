@@ -43,7 +43,7 @@ class Member:
 
         self.roles = []
 
-    def change_nickname(self, nick: str):
+    def change_nickname(self, nick):
         """Set new member's nick.
 
         Parameter
@@ -63,7 +63,7 @@ class Member:
         """
         self.roles.append(role)
 
-    def remove_role(self, role: str):
+    def remove_role(self, role):
         """Removes role from the member's roles.
 
         Parameter
@@ -80,7 +80,8 @@ class Member:
         return self.roles
 
     def __repr__(self):
-        return f'<{self.__class__.__name__} id="{self.identifier}">'
+        return f'<{self.__class__.__name__} id="{self.identifier}" ' \
+               f'guild_id="{self.guild_identifier}" roles={self.roles} nick="{self.nick}">'
 
 class Members:
     """The class of custom members' utilities that require the :class:`commands.Bot`.
@@ -92,7 +93,7 @@ class Members:
         self.__members = {}
         self._class = Member
 
-    def create_member(self, identifier: str, guild_identifier: str):
+    def create_member(self, identifier, guild_identifier):
         """Create new member.
 
         Parameter
@@ -231,4 +232,5 @@ class Members:
         return True
 
     def __repr__(self):
-        return f'<{self.__class__.__name__} members={len(self.__members)}>'
+        return f'<{self.__class__.__name__} ' \
+               f'members={[self.__members[member] for member in self.__members]}>'
