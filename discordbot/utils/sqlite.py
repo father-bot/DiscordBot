@@ -34,7 +34,7 @@ class SQLiteDatabase:
     """
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.database = './discordbot/data/database/'
+        self.database = "./discordbot/data/database/"
         self.database_tables = {}
         self.conn = None
         self.cursor = None
@@ -47,8 +47,8 @@ class SQLiteDatabase:
         name: :class:`str`
             Name of new database.
         """
-        if not os.path.exists(f'{self.database}/{name}.db'):
-            filename = open(f'{self.database}/{name}.db', 'w')
+        if not os.path.exists(f"{self.database}/{name}.db"):
+            filename = open(f"{self.database}/{name}.db", "w")
             filename.close()
 
     def create_databases(self):
@@ -65,7 +65,7 @@ class SQLiteDatabase:
         name: :class:`str`
             Name of the database.
         """
-        return os.path.exists(f'{self.database}/{name}.db')
+        return os.path.exists(f"{self.database}/{name}.db")
 
     def create_new_table_database(self, name: str, table_name: str, options: dict):
         """Create new database table.
@@ -82,13 +82,13 @@ class SQLiteDatabase:
         if not table_name in self.database_tables.keys():
             try:
                 self.database_tables[table_name] = [{key:options[key]} for key in options]
-                table = ',\n'.join([f'{key} {options[key]}' for key in options]) if options else ''
-                self.conn = sqlite3.connect(f'{self.database}/{name}.db')
+                table = ",\n".join([f"{key} {options[key]}" for key in options]) if options else ""
+                self.conn = sqlite3.connect(f"{self.database}/{name}.db")
                 self.cursor = self.conn.cursor()
-                self.cursor.execute('''CREATE TABLE {} (
+                self.cursor.execute("""CREATE TABLE {} (
                                        id INTEGER PRIMARY KEY,
                                        {}
-                                    )'''.format(table_name, table))
+                                    )""".format(table_name, table))
                 self.conn.commit()
                 self.conn.close()
             except sqlite3.OperationalError:
@@ -104,14 +104,14 @@ class SQLiteDatabase:
         data: :class:`list`
             All the data.
         """
-        result = ''
+        result = ""
         for index, value in enumerate(data, 0):
             table = self.database_tables[table_name][index]
             key = list(table.keys())[0]
-            if table[key] == 'text':
-                result += f'"{value}", '
-            elif table[key] == 'int':
-                result += f'{value}, '
+            if table[key] == "text":
+                result += f"'{value}', "
+            elif table[key] == "int":
+                result += f"{value}, "
         return result[:-2]
 
     def _to_string_with_variables(self, table_name: str, data: list):
@@ -124,14 +124,14 @@ class SQLiteDatabase:
         data: :class:`list`
             All the data.
         """
-        result = ''
+        result = ""
         for index, value in enumerate(data, 0):
             table = self.database_tables[table_name][index]
             key = list(table.keys())[0]
-            if table[key] == 'text':
-                result += f'{key} = "{value}", '
-            elif table[key] == 'int':
-                result += f'{key} = {value}, '
+            if table[key] == "text":
+                result += f"{key} = '{value}', "
+            elif table[key] == "int":
+                result += f"{key} = {value}, "
         return result[:-2]
 
     def set_default_database_value(self, name: str, table_name: str, data: list):
@@ -147,10 +147,10 @@ class SQLiteDatabase:
             All the data.
         """
         if table_name in self.database_tables.keys():
-            self.conn = sqlite3.connect(f'{self.database}/{name}.db')
+            self.conn = sqlite3.connect(f"{self.database}/{name}.db")
             self.cursor = self.conn.cursor()
             try:
-                self.cursor.execute('''INSERT INTO {} VALUES ({}, {})'''.format(
+                self.cursor.execute("""INSERT INTO {} VALUES ({}, {})""".format(
                     table_name, data[0], self._to_string(table_name, data[1:])))
             except sqlite3.IntegrityError:
                 pass
@@ -170,9 +170,9 @@ class SQLiteDatabase:
             ID of section.
         """
         if table_name in self.database_tables.keys():
-            self.conn = sqlite3.connect(f'{self.database}/{name}.db')
+            self.conn = sqlite3.connect(f"{self.database}/{name}.db")
             self.cursor = self.conn.cursor()
-            self.cursor.execute('''DELETE FROM {} WHERE id = {}'''.format(table_name, identifier))
+            self.cursor.execute("""DELETE FROM {} WHERE id = {}""".format(table_name, identifier))
             self.conn.commit()
             self.conn.close()
 
@@ -191,13 +191,13 @@ class SQLiteDatabase:
             All the data.
         """
         if table_name in self.database_tables.keys():
-            self.conn = sqlite3.connect(f'{self.database}/{name}.db')
+            self.conn = sqlite3.connect(f"{self.database}/{name}.db")
             self.cursor = self.conn.cursor()
             result = self._to_string_with_variables(table_name, data)
-            self.cursor.execute('''UPDATE {}
+            self.cursor.execute("""UPDATE {}
                                    SET
                                      {}
-                                   WHERE id = {}'''.format(table_name, result, identifier))
+                                   WHERE id = {}""".format(table_name, result, identifier))
             self.conn.commit()
             self.conn.close()
 
@@ -213,10 +213,14 @@ class SQLiteDatabase:
         identifier: :class:`int`
             ID of section.
         """
-        self.conn = sqlite3.connect(f'{self.database}/{name}.db')
+        self.conn = sqlite3.connect(f"{self.database}/{name}.db")
         self.cursor = self.conn.cursor()
-        self.cursor.execute('SELECT * FROM {} WHERE id = {}'.format(table_name, identifier))
-        data = self.cursor.fetchall()[0]
+        self.cursor.execute("SELECT * FROM {} WHERE id = {}".format(table_name, identifier))
+        data = self.cursor.fetchall()
+        try:
+            data = data[0]
+        except IndexError:
+            data = None
         self.conn.commit()
         self.conn.close()
         return data
@@ -231,9 +235,9 @@ class SQLiteDatabase:
         table_name: :class:`str`
             Name of the table.
         """
-        self.conn = sqlite3.connect(f'{self.database}/{name}.db')
+        self.conn = sqlite3.connect(f"{self.database}/{name}.db")
         self.cursor = self.conn.cursor()
-        self.cursor.execute(f'SELECT * FROM {table_name}')
+        self.cursor.execute(f"SELECT * FROM {table_name}")
         data = self.cursor.fetchall()
         self.conn.commit()
         self.conn.close()
