@@ -10,6 +10,8 @@ An utils module to facilitate creation of bot commands.
 :license: MIT, see LICENSE for more details.
 """
 
+from .jsondatabase import *
 from .sqlite import *
 from .members import *
 from .modules import *
+from .voice import *
