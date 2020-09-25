@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from discordbot.utils import Module
+from discordbot import Module
 
 class Load(Module):
 	'''Loads, unloads and reloads packages.'''
@@ -15,7 +15,7 @@ class Load(Module):
 			except commands.ExtensionError as e:
 				await ctx.send(str(e).replace('discordbot.cogs.', ''))
 		else:
-			self.bot.modules.load()
+			self.bot.modules.load_modules()
 
 	@commands.command(usage='<package>')
 	@commands.has_permissions(administrator = True)
@@ -28,7 +28,7 @@ class Load(Module):
 			except commands.ExtensionError as e:
 				await ctx.send(str(e).replace('discordbot.cogs.', ''))
 		else:
-			self.bot.modules.reload()
+			self.bot.modules.reload_modules()
 
 	@commands.command(usage='<package>')
 	@commands.has_permissions(administrator = True)
@@ -40,7 +40,7 @@ class Load(Module):
 			except commands.ExtensionError as e:
 				await ctx.send(str(e).replace('discordbot.cogs.', ''))
 		else:
-			self.bot.modules.unload()
+			self.bot.modules.unload_modules()
 
 def setup(bot: commands.Bot) -> None:
 	bot.add_cog(Load(bot))

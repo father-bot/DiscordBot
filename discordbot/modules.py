@@ -55,7 +55,8 @@ class Modules:
             self.bot.load_extension(self.python_path.format(name))
         except commands.errors.ExtensionAlreadyLoaded:
             pass
-        except Exception:
+        except Exception as e:
+            print(e)
             return False
         return True
 
@@ -90,7 +91,7 @@ class Modules:
     def load_modules(self) -> bool:
         """The method to load all modules.
         """
-        for filename in os.listdir(self.modules_path):
+        for filename in os.listdir(self.modules_path.format('')):
             if not '__init__' in filename and filename.endswith('.py'):
                 if not self.load_module(filename[:-3]):
                     return False
@@ -99,7 +100,7 @@ class Modules:
     def reload_modules(self) -> bool:
         """The method to reload all modules.
         """
-        for filename in os.listdir(self.modules_path):
+        for filename in os.listdir(self.modules_path.format('')):
             if not '__init__' in filename and filename.endswith('.py'):
                 if not self.reload_module(filename[:-3]):
                     return False
@@ -108,7 +109,7 @@ class Modules:
     def unload_modules(self) -> bool:
         """The method to unload all modules.
         """
-        for filename in os.listdir(self.modules_path):
+        for filename in os.listdir(self.modules_path.format('')):
             if not '__init__' in filename and filename.endswith('.py'):
                 if not self.unload_module(filename[:-3]):
                     return False

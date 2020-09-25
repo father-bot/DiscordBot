@@ -1,5 +1,5 @@
 from discord.ext import commands
-from discordbot.utils import Module
+from discordbot import Module
 
 class Clear(Module):
 	'''Clears chat.'''
